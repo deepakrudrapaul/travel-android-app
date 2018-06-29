@@ -1,11 +1,5 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:wanderwagon/ui/auth/login.dart';
-import 'package:wanderwagon/ui/auth/sign_up.dart';
-import 'package:wanderwagon/ui/home.dart';
-import 'package:wanderwagon/utils/colors.dart';
-import 'package:wanderwagon/ui/feed/detail.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 
 

@@ -1,42 +1,25 @@
-import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
+import 'package:wanderwagon/network/service_injector.dart';
 
 class Feed {
 
-  String author;
   String title;
-  String description;
   String imageUrl;
 
-  Feed({this.author, this.title, this.description, this.imageUrl});
+  Feed({this.title, this.imageUrl});
 
   factory Feed.fromJson(Map<String, dynamic> json) {
     return new Feed(
-      author: json['author'] as String,
       title: json['title'] as String,
-      description: json['description'] as String,
       imageUrl: json['urlToImage'] as String
     );
   }
   
 }
 
-Future<List<Feed>> fetchFeeds() async {
-  final response = await http.get(
-      'https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=7fbf37bdc1b44ffe83433e5d7d10b67b');
-  return compute(parseFeeds, response.body);
-}
-
-List<Feed> parseFeeds(String responseBody) {
-  final parsed = json.decode(responseBody);
-  return parsed['articles']
-      .map<Feed>((json) => new Feed.fromJson(json))
-      .toList();
-}
 
 class FeedPage extends StatefulWidget {
 
@@ -50,10 +33,19 @@ class FeedPage extends StatefulWidget {
 
 class FeedState extends State<FeedPage> {
 
+  Injector injector;
+
+
+  @override
+  void initState() {
+    super.initState();
+    injector = Injector();
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Feed>>(
-      future: fetchFeeds(),
+      future: injector.wanderwagonService.fetchFeeds(http.Client()),
       builder: (context, snapshot) {
         if(snapshot.hasError) print(snapshot.error);
         return snapshot.hasData
@@ -91,11 +83,6 @@ class FeedListView extends StatelessWidget {
                             style: new TextStyle(
                                 color: Colors.grey[800], fontSize: 18.0))),
                     new Image.network(feeds[index].imageUrl),
-                    new Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: new Text(feeds[index].description,
-                            style: new TextStyle(
-                                color: Colors.grey[800], fontSize: 14.0)))
                   ],
                 ))
         );

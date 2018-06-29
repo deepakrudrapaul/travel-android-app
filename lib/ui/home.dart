@@ -3,7 +3,6 @@ import 'package:wanderwagon/ui/feed/feed.dart';
 import 'package:wanderwagon/ui/trip/trip.dart';
 
 
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => new _HomePageState();
@@ -14,6 +13,7 @@ class _HomePageState extends State<HomePage> {
   final Key tripPageKey = PageStorageKey('trip');
   final Key feedPageKey = PageStorageKey('feed');
   final Key communityPageKey = PageStorageKey('community');
+
 
   final PageStorageBucket bucket = PageStorageBucket();
 

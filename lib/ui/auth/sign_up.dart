@@ -98,6 +98,6 @@ class SignUpPageState extends State<SignUpPage> {
             ),
           )
       ),
-    );;
+    );
   }
 }

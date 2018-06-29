@@ -13,7 +13,6 @@ dependencies:
   intl: ^0.15.2
   image_picker: "^0.4.5"
   shared_preferences: "^0.4.2"
-  quick_actions: "^0.2.1"
 
 
 

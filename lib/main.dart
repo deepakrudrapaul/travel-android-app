@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wanderwagon/network/service_injector.dart';
 import 'package:wanderwagon/ui/auth/login.dart';
 import 'package:wanderwagon/ui/auth/sign_up.dart';
 import 'package:wanderwagon/ui/feed/detail.dart';
 import 'package:wanderwagon/ui/home.dart';
 import 'package:wanderwagon/ui/intro/intro.dart';
 import 'package:wanderwagon/utils/colors.dart';
-import 'app.dart';
 
 
 final ThemeData _kWanderTheme = _buildWanderTheme();
@@ -32,6 +32,7 @@ ThemeData _buildWanderTheme() {
 
 void main() async {
 
+  Injector.configure(BuildType.PROD);
   Widget _defaultHome= new HomePage();
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   bool _seen = (sharedPreferences.getBool('seen') ?? false);

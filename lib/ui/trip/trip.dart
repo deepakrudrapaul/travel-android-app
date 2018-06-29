@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:wanderwagon/data/models/trip.dart';
-import 'package:quick_actions/quick_actions.dart';
+import 'package:wanderwagon/models/trip.dart';
 
 class TripsPage extends StatefulWidget {
   TripsPage({Key key}) : super(key: key);
@@ -14,21 +13,6 @@ class TripsPage extends StatefulWidget {
 
 class TripsState extends State<TripsPage> {
 
-  @override
-  void initState() {
-    super.initState();
-    final QuickActions quickActions = const QuickActions();
-    quickActions.initialize((String shortcutType) {
-      if (shortcutType == 'action_add_trip') {
-        _openAddTripDialog();
-      }
-    });
-
-    quickActions.setShortcutItems(<ShortcutItem>[
-      const ShortcutItem(
-          type: 'action_add_trip', localizedTitle: 'Add Trip', icon: 'add_circle'),
-    ]);
-  }
   List<Trip> trips = [];
 
   @override
