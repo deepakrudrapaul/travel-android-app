@@ -1,8 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:wanderwagon/models/trip.dart';
+import 'package:android_permissions_manager/android_permissions_manager.dart';
+
+
 
 class TripsPage extends StatefulWidget {
   TripsPage({Key key}) : super(key: key);
@@ -12,6 +14,16 @@ class TripsPage extends StatefulWidget {
 }
 
 class TripsState extends State<TripsPage> {
+
+  bool _locationPermission;
+
+  @override
+  initState() {
+    super.initState();
+
+    requestPermission();
+  }
+
 
   List<Trip> trips = [];
 
@@ -59,6 +71,27 @@ class TripsState extends State<TripsPage> {
     );
   }
 
+
+  void _showModalSheet() {
+    showModalBottomSheet(
+        context: context,
+        builder: (builder) {
+          return new Container(
+            color: Colors.transparent,
+            child: new Container(
+                decoration: new BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: new BorderRadius.only(
+                        topLeft: const Radius.circular(16.0),
+                        topRight: const Radius.circular(16.0))),
+                child: new Center(
+                  child: new Text("Just accept all permissions"),
+                )),
+          );
+        });
+  }
+
+
   Future _openAddTripDialog() async {
     Trip trip = await Navigator.of(context).push(new MaterialPageRoute<Trip>(
         builder: (BuildContext context) {
@@ -71,6 +104,27 @@ class TripsState extends State<TripsPage> {
         trips.add(trip);
       }
     });
+  }
+
+
+  Future requestPermission() async {
+    PermissionResult result = await AndroidPermissionsManager.requestPermission(PermissionType.ACCESS_COARSE_LOCATION);
+
+    switch(result) {
+      case PermissionResult.granted:
+        _locationPermission = true;
+        print('Permission granted');
+        break;
+
+      case PermissionResult.denied:
+        _locationPermission = false;
+        print('Permission denied');
+        break;
+
+      case PermissionResult.showRationale:
+        _showModalSheet();
+        break;
+    }
   }
 }
 

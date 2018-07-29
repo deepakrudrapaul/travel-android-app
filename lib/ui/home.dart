@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:wanderwagon/ui/feed/feed.dart';
 import 'package:wanderwagon/ui/trip/trip.dart';
 
@@ -10,6 +13,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+
+  static const platform = const MethodChannel('workerManager');
   final Key tripPageKey = PageStorageKey('trip');
   final Key feedPageKey = PageStorageKey('feed');
   final Key communityPageKey = PageStorageKey('community');
@@ -18,7 +23,6 @@ class _HomePageState extends State<HomePage> {
   final PageStorageBucket bucket = PageStorageBucket();
 
   int currentTab = 0;
-
   TripsPage tripsPage;
   FeedPage feedPage;
 
@@ -27,15 +31,29 @@ class _HomePageState extends State<HomePage> {
 
   @override
   initState() {
+
     tripsPage = TripsPage(key: tripPageKey);
     feedPage = FeedPage(key: feedPageKey);
     pages = [tripsPage, feedPage];
     currentPage = tripsPage;
 
-
     super.initState();
   }
 
+//  void _startJob() async {
+//    print("Job Started .......");
+//    final job = await AndroidJobScheduler.scheduleEvery(
+//        const Duration(seconds: 10), 42, jobSchedulerCallback);
+//  }
+
+
+  Future _callNativeWorker() async {
+    try {
+      platform.invokeMethod('startWork');
+    } on PlatformException catch (e) {
+      print(e.toString());
+    }
+  }
 
   void _showModalSheet() {
     showModalBottomSheet(
@@ -72,7 +90,7 @@ class _HomePageState extends State<HomePage> {
         onTap: (int index) {
           setState(() {
             if(index == 2) {
-              _showModalSheet();
+              _callNativeWorker();
             } else {
               currentTab = index;
               currentPage = pages[index];
@@ -94,3 +112,16 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+//
+//var location = new Location();
+//
+//void jobSchedulerCallback() async {
+//  DateTime date = new DateTime.now();
+//  var currentLocation = <String, double>{};
+//  try {
+//    currentLocation = await location.getLocation;
+//    print('\nLOCATION : ***   $currentLocation   *** \nDATE : *** $date');
+//  } on Exception {
+//    currentLocation = null;
+//  }
+//}

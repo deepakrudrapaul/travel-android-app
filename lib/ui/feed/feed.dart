@@ -33,13 +33,13 @@ class FeedPage extends StatefulWidget {
 
 class FeedState extends State<FeedPage> {
 
-  Injector injector;
+  ServiceInjector injector;
 
 
   @override
   void initState() {
     super.initState();
-    injector = Injector();
+    injector = ServiceInjector();
   }
 
   @override

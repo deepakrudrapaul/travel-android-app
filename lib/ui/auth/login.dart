@@ -1,32 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:wanderwagon/ui/auth/bloc/auth_provider.dart';
 import 'package:wanderwagon/ui/auth/sign_up.dart';
+import 'package:wanderwagon/utils/country_code/country_code_picker.dart';
 
 
-
-class LoginPage extends StatefulWidget {
-
-  @override
-  LoginPageState createState() {
-    return new LoginPageState();
-  }
-}
-
-
-class LoginPageState extends State<LoginPage> {
-
-  final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
-
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
-
+class LoginPage extends StatelessWidget {
 
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: new SafeArea(
+
+    final bloc = AuthProvider.of(context);
+    ThemeData  theme = Theme.of(context);
+
+    return Scaffold(
+      body: SafeArea(
           child: Form(
-            key: _formKey,
             child: new ListView(
               padding: const EdgeInsets.symmetric(horizontal: 40.0),
               children: <Widget>[
@@ -37,70 +26,15 @@ class LoginPageState extends State<LoginPage> {
                   )),
                 ),
                 const SizedBox(height: 80.0),
-                TextFormField(
-                  keyboardType: TextInputType.phone,
-                  decoration: InputDecoration(
-                    prefixIcon: Padding(
-                        padding: EdgeInsets.only(right: 16.0, top: 8.0),
-                      child: Icon(Icons.phone),
-                    ),
-                    filled: false,
-                    labelText: 'Phone Number'
-                  ),
-                ),
+                phoneField(bloc),
                 const SizedBox(height: 16.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(right: 16.0, top: 8.0),
-                        child: Icon(Icons.lock_outline),
-                      ),
-                    filled: false,
-                    labelText: 'Password'
-                  ),
-                obscureText: true,
-                ),
+                passwordField(bloc),
                 const SizedBox(height: 5.0),
                 Text('Forgot Password ?', textAlign: TextAlign.right, style: TextStyle(fontSize: 12.0),),
                 const SizedBox(height: 20.0),
-                RaisedButton(
-                    padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-                    textColor: Colors.white,
-                    child: Text('Login'),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
+                submitButton(bloc),
                 const SizedBox(height: 40.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      color: Colors.black,
-                      width: 80.0,
-                      height: 1.0,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text('OR CONNECT WITH', style: TextStyle(fontSize: 12.0),)),
-                    Container(
-                      color: Colors.black,
-                      width: 80.0,
-                      height: 1.0,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 40.0),
-                RaisedButton(
-                  padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-                  textColor: Colors.white,
-                  child: Text('Google Sign In'),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
+
                 Container(
                   margin: const EdgeInsets.only(top: 50.0),
                   child: GestureDetector(
@@ -115,6 +49,71 @@ class LoginPageState extends State<LoginPage> {
             ),
           )
       ),
+    );
+  }
+
+
+  Widget phoneField(bloc) {
+    return StreamBuilder(
+      stream: bloc.phone,
+      builder: (context, snapshot) {
+        return   TextField(
+          onChanged: bloc.changePhone,
+          keyboardType: TextInputType.phone, decoration: InputDecoration(
+            prefixIcon: Padding(
+              padding: const EdgeInsets.only(right: 16.0, top:16.0),
+              child: CountryCodePicker(
+                onChanged: print,
+                initialSelection: '+91',
+                favorite: ['+91', 'IN'],
+              ),
+            ),
+            filled: false,
+            labelText: 'Phone Number',
+            errorText: snapshot.error
+        ),
+        );
+      }
+    );
+  }
+
+
+  Widget passwordField(bloc) {
+    return  StreamBuilder(
+      stream: bloc.password,
+      builder: (context, snapshot) {
+        return TextField(
+          onChanged: bloc.changePassword,
+          decoration: InputDecoration(
+              prefixIcon: Padding(
+                padding: const EdgeInsets.only(right: 16.0, top: 8.0),
+                child: Icon(Icons.lock_outline),
+              ),
+              filled: false,
+              labelText: 'Password',
+              errorText: snapshot.error
+          ),
+          obscureText: true,
+        );
+      }
+    );
+  }
+
+
+  Widget submitButton(bloc) {
+    return StreamBuilder(
+      stream: bloc.submitValid,
+      builder: (context, snapshot) {
+        return   RaisedButton(
+          padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+          textColor: Colors.white,
+          child: Text('Login'),
+          onPressed: () {
+            snapshot.hasData ? bloc.submit() : null;
+          },
+        );
+      }
     );
   }
 }
