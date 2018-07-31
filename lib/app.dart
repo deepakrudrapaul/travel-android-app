@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wanderwagon/ui/auth/bloc/auth_provider.dart';
+import 'package:wanderwagon/ui/auth/forgot_password.dart';
 import 'package:wanderwagon/ui/auth/login.dart';
 import 'package:wanderwagon/ui/auth/sign_up.dart';
 import 'package:wanderwagon/ui/feed/detail.dart';
@@ -41,7 +42,8 @@ class WanderWagonApp extends StatelessWidget {
             '/home': (BuildContext context) => HomePage(),
             '/login' : (BuildContext context) => LoginPage(),
             '/signup': (BuildContext context) => SignUpPage(),
-            '/detail': (BuildContext context) => DetailPage()
+            '/detail': (BuildContext context) => DetailPage(),
+            '/forgotPassword': (BuildContext context) => ForgotPasswordPage()
           },
           theme: _kWanderTheme
       ),

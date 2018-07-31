@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wanderwagon/ui/auth/bloc/auth_provider.dart';
+import 'package:wanderwagon/ui/auth/forgot_password.dart';
 import 'package:wanderwagon/ui/auth/sign_up.dart';
 import 'package:wanderwagon/utils/country_code/country_code_picker.dart';
 
@@ -29,8 +30,15 @@ class LoginPage extends StatelessWidget {
                 phoneField(bloc),
                 const SizedBox(height: 16.0),
                 passwordField(bloc),
-                const SizedBox(height: 5.0),
-                Text('Forgot Password ?', textAlign: TextAlign.right, style: TextStyle(fontSize: 12.0),),
+                const SizedBox(height: 20.0),
+                InkWell(
+                  onTap: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ForgotPasswordPage(), fullscreenDialog: true)
+                    );
+                  },
+                    child: Text('Forgot Password ?', textAlign: TextAlign.right, style: TextStyle(fontSize: 12.0),)),
                 const SizedBox(height: 20.0),
                 submitButton(bloc),
                 const SizedBox(height: 40.0),
