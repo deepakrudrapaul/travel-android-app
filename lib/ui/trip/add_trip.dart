@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:wanderwagon/models/trip.dart';
+import 'package:wanderwagon/ui/trip/on_trip.dart';
+import 'package:wanderwagon/ui/trip/plan_trip.dart';
 
 class AddTripDialog extends StatefulWidget {
   @override
@@ -100,10 +102,11 @@ class AddTripDialogState extends State<AddTripDialog> {
             ListTile(
               title: TextField(
                 decoration: InputDecoration(
-                  labelText: "Source City",
+                  labelText: "Starting Point",
                 ),
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: InputDecorator(
@@ -129,15 +132,19 @@ class AddTripDialogState extends State<AddTripDialog> {
               alignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 RaisedButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => OnTripPage()));
+                  },
                   textColor: Colors.white,
                   child: Text('Start Trip'),
                 ),
 
                 RaisedButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PlanTripPage()));
+                  },
                   textColor: Colors.white,
-                  child: Text('Save for Later'),
+                  child: Text('Plan Trip'),
                 )
               ],
             )
