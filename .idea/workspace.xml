@@ -11,9 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7425c54f-6ac4-4e08-bb68-77da48f7e37e" name="Default" comment="">
       <change beforePath="" afterPath="$PROJECT_DIR$/lib/ui/trip/on_trip.dart" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/lib/ui/trip/plan_trip.dart" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/trip/add_trip.dart" afterPath="$PROJECT_DIR$/lib/ui/trip/add_trip.dart" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -71,8 +69,8 @@
       <file leaf-file-name="plan_trip.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/ui/trip/plan_trip.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="51" column="31" lean-forward="true" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
+            <state relative-caret-position="270">
+              <caret line="55" column="52" lean-forward="true" selection-start-line="55" selection-start-column="52" selection-end-line="55" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -458,7 +456,14 @@
       <option name="project" value="LOCAL" />
       <updated>1533129193499</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="plan trip page added">
+      <created>1533238976206</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1533238976208</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -577,7 +582,8 @@
     <MESSAGE value="forgot password page added" />
     <MESSAGE value="add trip page added" />
     <MESSAGE value="network folder added" />
-    <option name="LAST_COMMIT_MESSAGE" value="network folder added" />
+    <MESSAGE value="plan trip page added" />
+    <option name="LAST_COMMIT_MESSAGE" value="plan trip page added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -932,8 +938,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ui/trip/plan_trip.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="51" column="31" lean-forward="true" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
+        <state relative-caret-position="270">
+          <caret line="55" column="52" lean-forward="true" selection-start-line="55" selection-start-column="52" selection-end-line="55" selection-end-column="52" />
           <folding />
         </state>
       </provider>
