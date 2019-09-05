@@ -1,4 +1,4 @@
-# wanderwagon
+# Travel Social Media App build with Flutter
 
 A new Flutter project.
 
